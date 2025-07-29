@@ -8,21 +8,50 @@ def entropy_column(probs):
 def total_entropy(p_matrix):
     return sum(entropy_column(col) for col in p_matrix)
 
-profile = [
-    [0.7, 0.2, 0.0, 0.1],
-    [0.2, 0.2, 0.0, 0.6],
-    [0.0, 0.0, 1.0, 0.0],
-    [0.0, 0.0, 1.0, 0.0],
-    [0.1, 0.0, 0.9, 0.0],
-    [0.1, 0.0, 0.9, 0.0],
-    [0.0, 0.9, 0.1, 0.0],
-    [0.5, 0.1, 0.0, 0.4],
-    [0.8, 0.1, 0.0, 0.1],
-    [0.7, 0.1, 0.0, 0.2],
-    [0.3, 0.3, 0.0, 0.4],
-    [0.4, 0.0, 0.0, 0.6],
+# build profile matrix from sequences
+def build_p_matrix(sequences):
+    k = len(sequences[0])
+    profile = []
+    nucleotides = ['A', 'C', 'G', 'T']
+    for i in range(k):
+        column = [seq[i] for seq in sequences]
+        total = len(column)
+        counts = [column.count(nuc) / total for nuc in nucleotides]
+        profile.append(counts)
+    return profile
+
+
+
+motifs = [
+    "TCGGGGGTTTTT",
+    "CCGGTGACTTAC",
+    "ACGGGGATTTTC",
+    "TTGGGGACTTTT",
+    "AAGGGGACTTCC",
+    "TTGGGGACTTCC",
+    "TCGGGGATTCAT",
+    "TCGGGGATTCCT",
+    "TAGGGGAACTAC",
+    "TCGGGTATAACC",
 ]
 
+profile = build_p_matrix(motifs)
 # calc total entropy
 entropy = total_entropy(profile)
 print(entropy)
+
+
+# profile = [
+#     [0.7, 0.2, 0.0, 0.1],
+#     [0.2, 0.2, 0.0, 0.6],
+#     [0.0, 0.0, 1.0, 0.0],
+#     [0.0, 0.0, 1.0, 0.0],
+#     [0.1, 0.0, 0.9, 0.0],
+#     [0.1, 0.0, 0.9, 0.0],
+#     [0.0, 0.9, 0.1, 0.0],
+#     [0.5, 0.1, 0.0, 0.4],
+#     [0.8, 0.1, 0.0, 0.1],
+#     [0.7, 0.1, 0.0, 0.2],
+#     [0.3, 0.3, 0.0, 0.4],
+#     [0.4, 0.0, 0.0, 0.6],
+# ]
