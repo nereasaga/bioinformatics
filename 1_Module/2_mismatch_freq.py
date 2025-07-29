@@ -1,12 +1,4 @@
-def hamming_distance(s1, s2):
-    if len(s1) != len(s2):
-        raise ValueError("Strings must have the same length")
-    
-    distance = 0 
-    for a, b in zip(s1, s2):
-        if a != b:
-            distance += 1
-    return distance
+from utils import hamming_distance
 
 # find all neighbors of a pattern with up to d mismatches, generate k-mers with d mismatches
 def neighbors(pattern, d):

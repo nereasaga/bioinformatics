@@ -1,16 +1,9 @@
+from utils import frequency_table
+
 text= "CGGAGGACTCTAGGTAACGCTTATCAGGTCCATAGGACATTCA"
 k = 3
 
-# Most frequent k-mers in genome
-def frequency_table(text, k):
-    freq_map = {}
-    for i in range(len(text) - k + 1):
-        pattern = text[i:i+k]
-        if pattern not in freq_map:
-            freq_map[pattern] = 1
-        else:
-            freq_map[pattern] += 1
-    return freq_map
+
 
 # max value in frequency map
 def max_map(freq_map):
