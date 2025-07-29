@@ -1,5 +1,5 @@
 # pattern = "CTTGATCAT"
-# with open("./Genomes_data/Vibrio_cholerae.txt", "r") as file:
+# with open("../Genomes_data/Vibrio_cholerae.txt", "r") as file:
 #     genome = file.read()
 
 genome = "AAACATAGGATCAAC"

@@ -64,7 +64,7 @@ d = 3
 
 print(frequent_words_with_mismatches(text, k, d))
 
-with open("./Genomes_data/Salmonella_enterica.txt", "r") as file:
+with open("../Genomes_data/Salmonella_enterica.txt", "r") as file:
     genome = ''.join(line.strip() for line in file if not line.startswith('>'))
 
 # GC skew in 3818640, find frequent k-mers with mismatches in a window of 1000 nt

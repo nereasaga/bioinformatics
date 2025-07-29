@@ -31,7 +31,7 @@ def find_clumps(genome, k, L, t):
 
     return clumps
 
-with open('./Genomes_data/E_coli.txt', 'r') as file:
+with open('../Genomes_data/E_coli.txt', 'r') as file:
     genome = file.read().strip()
 
 k = 9

@@ -1,4 +1,4 @@
-# with open("./Genomes_data/Salmonella_enterica.txt", "r") as file:
+# with open("../Genomes_data/Salmonella_enterica.txt", "r") as file:
 #     text = file.read().strip()
 
 text = "CATTCCAGTACTTCATGATGGCGTGAAGA"
