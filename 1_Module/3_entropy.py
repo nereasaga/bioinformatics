@@ -8,18 +8,36 @@ def entropy_column(probs):
 
 #calculate total entropy of profile matrix
 def total_entropy(p_matrix):
-    return sum(entropy_column(col) for col in p_matrix)
+    transposed = list(zip(*p_matrix))
+    return sum(entropy_column(col) for col in transposed)
 
 # build profile matrix from sequences
+# def build_p_matrix(sequences):
+#     k = len(sequences[0])
+#     profile = []
+#     for i in range(k):
+#         column = [seq[i] for seq in sequences]
+#         total = len(column)
+#         counts = [column.count(nuc) / total for nuc in nucleotides]
+#         profile.append(counts)
+#     return profile
 def build_p_matrix(sequences):
+    nucleotides = ['A', 'C', 'G', 'T']
     k = len(sequences[0])
-    profile = []
+    t = len(sequences)
+    profile = [[1] * k for _ in range(4)] 
+
     for i in range(k):
         column = [seq[i] for seq in sequences]
-        total = len(column)
-        counts = [column.count(nuc) / total for nuc in nucleotides]
-        profile.append(counts)
+        for j, nuc in enumerate(nucleotides):
+            profile[j][i] += column.count(nuc)
+
+    for i in range(4):
+        for j in range(k):
+            profile[i][j] /= (t + 4) 
+
     return profile
+
 
 
 

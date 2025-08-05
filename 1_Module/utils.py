@@ -197,3 +197,55 @@ def frequent_words_mismatch_reverse(text, k, d):
 
     max_count = max(freq_map.values())
     return [pattern for pattern, count in freq_map.items() if count == max_count]
+
+    # build profile matrix from sequences
+    
+def build_p_matrix(sequences):
+    nucleotides = ['A', 'C', 'G', 'T']
+    k = len(sequences[0])
+    t = len(sequences)
+    profile = [[1] * k for _ in range(4)] 
+
+    for i in range(k):
+        column = [seq[i] for seq in sequences]
+        for j, nuc in enumerate(nucleotides):
+            profile[j][i] += column.count(nuc)
+
+    for i in range(4):
+        for j in range(k):
+            profile[i][j] /= (t + 4) 
+
+    return profile
+
+# parse profile matrix from string
+def parse_profile(profile_str):
+    lines = profile_str.strip().split('\n')  
+    profile = []
+    for line in lines:
+        row = [float(num) for num in line.strip().split()]  
+        profile.append(row)
+    return profile
+
+# calculate probability of a k-mer given a profile matrix
+def profile_probability(kmer, profile):
+    prob = 1.0
+    for i, nucleotide in enumerate(kmer):
+        prob *= profile[nucleotide][i]
+    return prob
+
+# find most probable k-mer in text given a profile matrix
+def profile_most_probable_kmer(text, k, profile):
+    max_prob = -1
+    most_probable = text[:k]  
+    for i in range(len(text) - k + 1):
+        kmer = text[i:i+k]
+        prob = profile_probability(kmer, profile)
+        if prob > max_prob:
+            max_prob = prob
+            most_probable = kmer
+    return most_probable
+
+# split DNA string into fragments
+def split_dna(dna_string):
+    fragments = [fragment.strip() for fragment in dna_string.split(' ') if fragment.strip() != '']
+    return fragments
