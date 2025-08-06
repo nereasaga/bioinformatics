@@ -22,8 +22,6 @@ def split_dna(dna_string):
 
 
 def score(motifs):
-    from collections import Counter
-
     k = len(motifs[0])
     score = 0
 

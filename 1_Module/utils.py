@@ -249,3 +249,35 @@ def profile_most_probable_kmer(text, k, profile):
 def split_dna(dna_string):
     fragments = [fragment.strip() for fragment in dna_string.split(' ') if fragment.strip() != '']
     return fragments
+
+# MD 3
+# build profile matrix with pseudocounts
+def build_p_matrix_wp(motifs):
+    from collections import Counter
+    k = len(motifs[0])
+    t = len(motifs)
+    profile = {'A': [], 'C': [], 'G': [], 'T': []}
+
+    for i in range(k):
+        column = [motif[i] for motif in motifs]
+        counts = Counter(column)
+        for nucleotide in "ACGT":
+            freq = (counts[nucleotide] + 1) / (t + 4)
+            profile[nucleotide].append(freq)
+
+    return profile
+
+# find score of motifs
+def score(motifs):
+    from collections import Counter
+
+    k = len(motifs[0])
+    score = 0
+
+    for i in range(k):
+        column = [motif[i] for motif in motifs]
+        counts = Counter(column)
+        most_common_count = counts.most_common(1)[0][1]
+        score += len(motifs) - most_common_count
+
+    return score
